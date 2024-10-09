@@ -48,11 +48,12 @@ public class ElementActions {
         }
     }
 
-    public void getText(String locator){
+    public String getText(String locator){
         log.info("Started to find text of element: {}", locator);
+        WebElement element = driver.findElement(getType(locator));
+        String textOfElem = "";
         try {
-            WebElement element = driver.findElement(getType(locator));
-            String textOfElem = element.getText();
+            textOfElem = element.getText();
             if (!textOfElem.isEmpty()){
                 log.info("Text of '{}' is '{}'", locator, textOfElem);
             } else {
@@ -61,6 +62,7 @@ public class ElementActions {
         } catch (Exception e){
             log.error("Unable to get text of element: {}", locator + " error message is " + e.getMessage());
         }
+        return textOfElem;
     }
 
     public void isDisplayed(String locator){
