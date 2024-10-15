@@ -63,6 +63,8 @@ public class ElementActions {
             } else {
                 log.info("Element is not contains any text!");
             }
+        } catch (org.openqa.selenium.NoSuchElementException e) {
+            log.error("Element is not available in the page for locator: {}", locator);
         } catch (Exception e){
             log.error("Unable to get text of element: {}", locator + " error message is " + e.getMessage());
         }
@@ -77,6 +79,8 @@ public class ElementActions {
             } else {
                 log.info("Element is not displayed for given locator: {}", locator);
             }
+        } catch (org.openqa.selenium.NoSuchElementException e) {
+            log.error("Element is not available in the page for locator: {}", locator);
         } catch (Exception e){
             log.error("Unable to get info about element display: {}", locator + " error message is " + e.getMessage());
         }
@@ -94,6 +98,8 @@ public class ElementActions {
             }
         } catch (org.openqa.selenium.NoSuchElementException e){
             log.error("Unable to assert text, the reason is {}", e.getMessage());
+        } catch (Exception e){
+            log.error("Switching to frame is failed! Reason is {}", e.getMessage());
         }
 
     }
@@ -104,6 +110,8 @@ public class ElementActions {
             Select objSelect = new Select(selectElem);
             objSelect.selectByIndex(index);
             log.info("Element selected successfully");
+        } catch (org.openqa.selenium.NoSuchElementException e) {
+            log.error("Element is not available in the page for locator: {}", locator);
         } catch (Exception e){
             log.error("Selecting from dropdown is failed, possible cause is {}", e.getMessage());
         }
@@ -116,6 +124,8 @@ public class ElementActions {
             Select objSelect = new Select(selectElem);
             objSelect.selectByVisibleText(visibleText);
             log.info("Element selected successfully");
+        } catch (org.openqa.selenium.NoSuchElementException e) {
+            log.error("Element is not available in the page for locator: {}", locator);
         } catch (Exception e){
             log.error("Selecting from dropdown is failed, possible cause is {}", e.getMessage());
         }
@@ -130,6 +140,8 @@ public class ElementActions {
             } else {
                 log.info("{} is already checked!", locator);
             }
+        } catch (org.openqa.selenium.NoSuchElementException e) {
+            log.error("Element is not available in the page for locator: {}", locator);
         } catch (Exception e){
             log.error("Checking checkbox is failed, error is {}", e.getMessage());
         }
@@ -145,6 +157,8 @@ public class ElementActions {
             } else {
                 log.info("{} is already unchecked!", locator);
             }
+        } catch (org.openqa.selenium.NoSuchElementException e) {
+            log.error("Element is not available in the page for locator: {}", locator);
         } catch (Exception e){
             log.error("Unchecking checkbox is failed, error is {}", e.getMessage());
         }
@@ -158,6 +172,8 @@ public class ElementActions {
             action.scrollToElement(element);
             action.moveToElement(element).build().perform();
             log.info("Successfully hovered to the '{}'", locator);
+        } catch (org.openqa.selenium.NoSuchElementException e) {
+            log.error("Element is not available in the page for locator: {}", locator);
         } catch (Exception e){
             log.error("Failed to hover element, error is {}", e.getMessage());
         }
@@ -168,6 +184,8 @@ public class ElementActions {
         try {
             driver.switchTo().frame(driver.findElement(getType(locator)));
             log.info("Successfully switched to frame");
+        } catch (org.openqa.selenium.NoSuchElementException e) {
+            log.error("Element is not available in the page for locator: {}", locator);
         } catch (Exception e){
             log.error("Switching to frame is failed! Reason is {}", e.getMessage());
         }
@@ -178,6 +196,8 @@ public class ElementActions {
         try {
             driver.switchTo().frame(index);
             log.info("Successfully switched to frame");
+        } catch (org.openqa.selenium.NoSuchElementException e) {
+            log.error("Element is not available in the page for index: {}", index);
         } catch (Exception e){
             log.error("Switching to frame is failed! Reason is {}", e.getMessage());
         }
