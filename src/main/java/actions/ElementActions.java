@@ -32,6 +32,8 @@ public class ElementActions {
             log.error("Element is not available for locator: {}", locator);
         } catch (org.openqa.selenium.ElementClickInterceptedException e){
             log.error("Element click intercepted for locator: {}", locator);
+        } catch (Exception e){
+            log.error("An error occurred: {}", e.getMessage());
         }
 
     }
@@ -45,6 +47,8 @@ public class ElementActions {
             log.info("'{}' sent successfully to the element: {}",text, locator);
         } catch (org.openqa.selenium.NoSuchElementException e) {
             log.error("Element is not available in the page for locator: {}", locator);
+        } catch (Exception e){
+            log.error("An error occurred: {}", e.getMessage());
         }
     }
 
@@ -195,7 +199,7 @@ public class ElementActions {
             return By.partialLinkText(locator.substring(16));
         } else if (locator.startsWith("css=")) {
             return By.cssSelector(locator.substring(4));
-        }else if (locator.startsWith("tagName=")) {
+        } else if (locator.startsWith("tagName=")) {
             return By.tagName(locator.substring(8));
         } else if (locator.startsWith("id=")) {
             return By.id(locator.substring(3));
