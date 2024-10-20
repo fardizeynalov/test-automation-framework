@@ -1,10 +1,7 @@
 package actions;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
@@ -99,7 +96,7 @@ public class ElementActions {
         } catch (org.openqa.selenium.NoSuchElementException e){
             log.error("Unable to assert text, the reason is {}", e.getMessage());
         } catch (Exception e){
-            log.error("Switching to frame is failed! Reason is {}", e.getMessage());
+            log.error("An error occurred! Reason is {}", e.getMessage());
         }
 
     }
@@ -148,10 +145,44 @@ public class ElementActions {
 
     }
 
+    public void checkCheckboxNotInputElement(String locator){
+        WebElement element = driver.findElement(getType(locator));
+        try {
+            if (element.getAttribute("checked") == null){
+                element.click();
+                log.info("{} checked successfully!", locator);
+            } else {
+                log.info("{} is already checked!", locator);
+            }
+        } catch (org.openqa.selenium.NoSuchElementException e) {
+            log.error("Element is not available in the page for locator: {}", locator);
+        } catch (Exception e){
+            log.error("Checking checkbox is failed, error is {}", e.getMessage());
+        }
+
+    }
+
     public void uncheckCheckbox(String locator){
         WebElement element = driver.findElement(getType(locator));
         try {
             if (element.isSelected()){
+                element.click();
+                log.info("{} unchecked successfully!", locator);
+            } else {
+                log.info("{} is already unchecked!", locator);
+            }
+        } catch (org.openqa.selenium.NoSuchElementException e) {
+            log.error("Element is not available in the page for locator: {}", locator);
+        } catch (Exception e){
+            log.error("Unchecking checkbox is failed, error is {}", e.getMessage());
+        }
+
+    }
+
+    public void uncheckCheckboxNotInputElement(String locator){
+        WebElement element = driver.findElement(getType(locator));
+        try {
+            if (element.getAttribute("checked") != null){
                 element.click();
                 log.info("{} unchecked successfully!", locator);
             } else {
@@ -186,6 +217,8 @@ public class ElementActions {
             log.info("Successfully switched to frame");
         } catch (org.openqa.selenium.NoSuchElementException e) {
             log.error("Element is not available in the page for locator: {}", locator);
+        } catch (org.openqa.selenium.NoSuchFrameException e){
+            log.error("Switching to frame is failed! Reason is {}", e.getMessage());
         } catch (Exception e){
             log.error("Switching to frame is failed! Reason is {}", e.getMessage());
         }
@@ -198,8 +231,22 @@ public class ElementActions {
             log.info("Successfully switched to frame");
         } catch (org.openqa.selenium.NoSuchElementException e) {
             log.error("Element is not available in the page for index: {}", index);
+        } catch (org.openqa.selenium.NoSuchFrameException e){
+            log.error("Switching to frame is failed! Reason is {}", e.getMessage());
         } catch (Exception e){
             log.error("Switching to frame is failed! Reason is {}", e.getMessage());
+        }
+    }
+
+    public void scrollToElement(String locator) {
+
+        WebElement element = driver.findElement(getType(locator));
+
+        try {
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            js.executeScript("arguments[0].scrollIntoView(true);", element);
+        } catch (Exception e) {
+            System.out.println("Scrolling to element failed! Reason: " + e.getMessage());
         }
     }
 
