@@ -245,9 +245,70 @@ public class ElementActions {
         try {
             JavascriptExecutor js = (JavascriptExecutor) driver;
             js.executeScript("arguments[0].scrollIntoView(true);", element);
+            log.info("Successfully scrolled to the {}", locator);
         } catch (Exception e) {
-            System.out.println("Scrolling to element failed! Reason: " + e.getMessage());
+            log.error("Scrolling to element failed! Reason: {}", e.getMessage());
         }
+    }
+
+    public void clearInput(String locator){
+        WebElement element = driver.findElement(getType(locator));
+        try {
+            element.clear();
+            log.info("{} is cleared!", locator);
+        } catch (Exception e){
+            log.error("An error occurred while clearing input! {}", e.getMessage());
+        }
+    }
+
+    public void clickButton(String locator, String buttonName){
+        WebElement element = driver.findElement(getType(locator));
+        switch (buttonName.toLowerCase()){
+            case "enter":
+                element.sendKeys(Keys.ENTER);
+                log.info("Clicked to ENTER button!");
+                break;
+
+            case "tab":
+                element.sendKeys(Keys.TAB);
+                log.info("Clicked to TAB button!");
+                break;
+
+            case "down":
+                element.sendKeys(Keys.ARROW_DOWN);
+                log.info("Clicked to Arrow down button!");
+                break;
+
+            case "up":
+                element.sendKeys(Keys.ARROW_UP);
+                log.info("Clicked to Arrow up button!");
+                break;
+
+            case "left":
+                element.sendKeys(Keys.ARROW_LEFT);
+                log.info("Clicked to Arrow left button!");
+                break;
+
+            case "right":
+                element.sendKeys(Keys.ARROW_RIGHT);
+                log.info("Clicked to Arrow right button!");
+                break;
+
+            default:
+                log.error("Button that you try to click is not supported by this framework!(Supported buttons are tab,enter,down,up,left and right)");
+        }
+    }
+
+    public String getAttributeOfElem(String locator, String attrName){
+        WebElement element = driver.findElement(getType(locator));
+        String valueOfAttr = null;
+        try {
+            valueOfAttr = element.getAttribute(attrName);
+            log.info("Value of {} is {}", attrName,valueOfAttr);
+        } catch (Exception e){
+            log.error("An error occurred while getting attribute value! {}", e.getMessage());
+        }
+        return valueOfAttr;
     }
 
 

@@ -8,19 +8,20 @@ import java.util.Map;
 public class TestData {
     public String getTestData(String key){
         Map<String, String> testData = new HashMap<>();
-        testData.put("username", "FardiZeynal");
-        testData.put("password", "SalamWorld");
+        testData.put("mail", "ferdi.zeynalov9@gmail.com");
+        testData.put("password", "SalamWorld123!");
         testData.put("age", "22");
+        testData.put("bookName", "Rezonans Kanunu");
+        testData.put("username", "Fardi Zeynalov");
 
         return testData.getOrDefault(key, "Test data not found for given key: " + key);
     }
 
-    @DataProvider(name = "searchData")
+    @DataProvider(name = "addresses")
     public Object[][] getDataProvider(){
 
         return new Object[][] {
-                {"laptop"},
-                {"mouse"}
+                {"inshaatchilar pr 40"}
         };
 
     }

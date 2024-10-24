@@ -36,6 +36,7 @@ public class ApiTest {
         log.info("PUT request sending to url: {}", url);
         Response response = RestAssured.given()
                 .baseUri(url)
+                .header("Content-Type", "application/json")
                 .body(body)
                 .when()
                 .put();
@@ -54,7 +55,7 @@ public class ApiTest {
         return response;
     }
 
-    public static void validateResponse(Response response, int expectedStatusCode) {
+    public void validateResponse(Response response, int expectedStatusCode) {
         int actualStatusCode = response.getStatusCode();
 
         if (actualStatusCode == expectedStatusCode) {
