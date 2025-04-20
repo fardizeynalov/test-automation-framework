@@ -8,8 +8,8 @@ import java.util.Map;
 public class TestData {
     public String getTestData(String key){
         Map<String, String> testData = new HashMap<>();
-        testData.put("mail", "ferdi.zeynalov9@gmail.com");
-        testData.put("password", "SalamWorld123!");
+        testData.put("mail", "add yours");
+        testData.put("password", "add yours");
         testData.put("age", "22");
         testData.put("bookName", "Rezonans Kanunu");
         testData.put("username", "Fardi Zeynalov");
@@ -21,7 +21,7 @@ public class TestData {
     public Object[][] getDataProvider(){
 
         return new Object[][] {
-                {"inshaatchilar pr 40"}
+                {"inshaatchilar pr 55"}
         };
 
     }
